@@ -6,7 +6,7 @@
             <div class="max-w-md mb-10">
                 <h2>Welcome to the Muscle-app</h2>
                 {{-- ユーザー登録ページへのリンク --}}
-                <a class="btn btn-primary btn-lg normal-case" href="{{ route('register') }}">Sign up now!</a>
+                <a class="btn btn-primary btn-lg normal-case" href="{{ route('register') }}">START</a>
             </div>
         </div>
     </div>
