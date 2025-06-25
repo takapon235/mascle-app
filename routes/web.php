@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserDetailsController;
+use App\Http\Controllers\ExecutionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +17,23 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/', [UserDetailsController::class, 'index']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[UserDetailsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+// 筋トレ実行画面
+Route::get('/execution', [ExecutionController::class, 'show'])->name('execution.execution');
+
+Route::post('/training-end', [UserDetailsController::class, 'handleTrainingEnd'])->name('training.end');
+
+Route::get('/training_memo', [UserDetailsController::class, 'createMemo'])->name('training.memo.form');
+Route::post('/training_memo', [UserDetailsController::class, 'storeMemo'])->name('training.memo.store');
+
+Route::get('/users/{id}', [UsersController::class, 'show'])->name('users.show');
 
 Route::middleware('auth')->group(function() {
     Route::resource('users', UsersController::class, ['only' => ['show']]);
+    Route::resource('user_details', UserDetailsController::class, ['only' => ['store', 'destroy', 'index']]);
 });
 
 require __DIR__.'/auth.php';
