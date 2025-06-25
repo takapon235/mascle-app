@@ -21,8 +21,8 @@ Route::get('/', [UserDetailsController::class, 'index']);
 
 Route::get('/dashboard',[UserDetailsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-// 筋トレ実行画面
-Route::get('/execution', [ExecutionController::class, 'show'])->name('execution.execution');
+// 筋トレ実行画
+Route::get('/execution', [ExecutionController::class, 'show'])->middleware(['auth', 'verified'])->name('execution.execution');
 
 Route::post('/training-end', [UserDetailsController::class, 'handleTrainingEnd'])->name('training.end');
 
